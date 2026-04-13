@@ -8,8 +8,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RunRetained",
-  description: "RunRetained by Banti Software",
+  title: "Run Retained — AI-Powered Executive Search Platform",
+  description:
+    "The operating system for retained executive search. AI-powered intake, mandate drafting, candidate evaluation, and artifact generation — all inside a governed workflow.",
+  openGraph: {
+    title: "Run Retained — AI-Powered Executive Search Platform",
+    description:
+      "AI-powered execution for retained executive search. Structure every search from intake to close.",
+    url: "https://runretained.com",
+    siteName: "Run Retained",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Run Retained — AI-Powered Executive Search Platform",
+    description:
+      "AI-powered execution for retained executive search. Structure every search from intake to close.",
+  },
 };
 
 export default function RootLayout({
