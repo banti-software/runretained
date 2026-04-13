@@ -51,42 +51,85 @@ export default function Home() {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section className="hero-gradient pt-28 sm:pt-36 pb-20 sm:pb-28 text-center">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="mb-6 flex justify-center">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-xs text-slate-500 shadow-sm">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent" />
-              Built for retained executive search
-            </span>
-          </div>
-
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-[58px] font-bold tracking-[-0.035em] text-black leading-[1.06]">
-            Run every search with
-            <br className="hidden sm:block" />
-            AI-powered precision
+      <section className="pt-16 sm:pt-20 pb-0 text-center">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+          <h1 className="text-3xl sm:text-5xl lg:text-[52px] tracking-[-0.03em] text-black leading-[1.1]">
+            Your executive search, on AI
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-slate-500 max-w-xl mx-auto leading-7">
-            From intake to close — AI drafts the artifacts, workflows enforce the process, and every decision is backed by evidence.
+          <p className="mt-5 text-base sm:text-lg text-slate-500 max-w-md mx-auto leading-7">
+            Turn intake calls, candidate screens, and reference checks into structured intelligence and governed artifacts — automatically.
           </p>
 
-          <div className="mt-10 flex items-center justify-center gap-3">
+          <div className="mt-8 flex items-center justify-center gap-3">
             <a
               href={`mailto:${company.contactEmail}`}
-              className="px-7 py-3 bg-black hover:bg-slate-800 transition text-white rounded-full text-sm font-medium"
+              className="px-7 py-3 bg-black hover:bg-slate-800 transition text-white rounded-full text-sm"
             >
               Get in touch
             </a>
-            <a
-              href="#how-it-works"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-7 py-3 border border-slate-200 hover:border-slate-300 transition text-slate-700 rounded-full text-sm font-medium"
-            >
-              See how it works
-            </a>
+          </div>
+        </div>
+
+        {/* Full-width product preview */}
+        <div className="mt-12 px-6 sm:px-10 lg:px-16 max-w-6xl mx-auto">
+          <div className="border border-slate-200 rounded-2xl overflow-hidden bg-slate-50">
+            {/* Mock product UI */}
+            <div className="p-4 sm:p-6 lg:p-8">
+              {/* Top bar */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-xs font-medium text-slate-800">VP Engineering Search — Acme Corp</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100">Active</span>
+                </div>
+                <span className="text-[10px] text-slate-400">Mandate v2 - Locked</span>
+              </div>
+
+              {/* Pipeline stages */}
+              <div className="grid grid-cols-5 gap-2 mb-6">
+                {[
+                  { label: "Identified", count: 24, color: "bg-slate-200" },
+                  { label: "Contacted", count: 18, color: "bg-blue-200" },
+                  { label: "Screened", count: 9, color: "bg-indigo-200" },
+                  { label: "Evaluated", count: 5, color: "bg-violet-200" },
+                  { label: "Presented", count: 2, color: "bg-emerald-200" },
+                ].map((stage) => (
+                  <div key={stage.label} className="text-center">
+                    <div className={`h-1.5 rounded-full ${stage.color} mb-2`} />
+                    <span className="text-[10px] text-slate-500 block">{stage.label}</span>
+                    <span className="text-xs font-semibold text-slate-700">{stage.count}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Candidate rows */}
+              <div className="space-y-1.5">
+                {[
+                  { name: "Sarah Chen", role: "VP Eng, Series D Fintech", stage: "Evaluated", score: "4.2", signals: 12, status: "Defense brief generating..." },
+                  { name: "Marcus Rivera", role: "CTO, Growth-stage SaaS", stage: "Screened", score: "3.8", signals: 7, status: "3 signals pending verification" },
+                  { name: "Priya Sharma", role: "SVP Eng, Public Co", stage: "Evaluated", score: "4.5", signals: 15, status: "Ready to present" },
+                ].map((c) => (
+                  <div key={c.name} className="flex items-center justify-between px-3 py-2.5 bg-white rounded-lg border border-slate-100">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-medium text-slate-500 shrink-0">
+                        {c.name.split(" ").map(n => n[0]).join("")}
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-xs font-medium text-slate-800 block truncate">{c.name}</span>
+                        <span className="text-[10px] text-slate-400 block truncate">{c.role}</span>
+                      </div>
+                    </div>
+                    <div className="hidden sm:flex items-center gap-4 shrink-0">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-100">{c.stage}</span>
+                      <span className="text-[10px] text-slate-400">{c.signals} signals</span>
+                      <span className="text-xs font-medium text-slate-700">{c.score}</span>
+                      <span className="text-[10px] text-slate-400 max-w-[160px] truncate">{c.status}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
