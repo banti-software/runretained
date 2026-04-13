@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 const searches = [
-  { id: "1", title: "VP Engineering", client: "Acme Corp", status: "active" as const },
-  { id: "2", title: "CFO", client: "Beacon Health", status: "active" as const },
-  { id: "3", title: "Head of Product", client: "Nova Labs", status: "on_hold" as const },
-  { id: "4", title: "CTO", client: "Ridge Financial", status: "draft" as const },
+  { id: "1", title: "VP Engineering", client: "Acme Corp" },
+  { id: "2", title: "CFO", client: "Beacon Health" },
+  { id: "3", title: "Head of Product", client: "Nova Labs" },
+  { id: "4", title: "CTO", client: "Ridge Financial" },
 ];
 
 const navItems = [
@@ -105,12 +105,6 @@ const bottomItems = [
   },
 ];
 
-const statusColors: Record<string, string> = {
-  active: "bg-emerald-400",
-  on_hold: "bg-amber-400",
-  draft: "bg-slate-300",
-};
-
 export function Sidebar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSearch, setActiveSearch] = useState(searches[0]);
@@ -122,7 +116,7 @@ export function Sidebar() {
       <div className="p-3 border-b border-slate-100">
         {/* Org row */}
         <div className="flex items-center gap-2.5 px-2 py-1.5 mb-1">
-          <div className="w-7 h-7 rounded-lg bg-black flex items-center justify-center shrink-0">
+          <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center shrink-0">
             <span className="text-[10px] font-bold text-white">RR</span>
           </div>
           <div className="min-w-0">
@@ -137,19 +131,15 @@ export function Sidebar() {
             onClick={() => setSearchOpen(!searchOpen)}
             className="w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg hover:bg-slate-50 transition text-left"
           >
-            <div className="flex items-center gap-2 min-w-0">
-              <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusColors[activeSearch.status]}`} />
-              <div className="min-w-0">
-                <span className="text-[13px] font-medium text-slate-800 block truncate">{activeSearch.title}</span>
-                <span className="text-[10px] text-slate-400 block truncate">{activeSearch.client}</span>
-              </div>
+            <div className="min-w-0">
+              <span className="text-[13px] font-medium text-slate-800 block truncate">{activeSearch.title}</span>
+              <span className="text-[10px] text-slate-400 block truncate">{activeSearch.client}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-slate-400 transition-transform shrink-0 ${searchOpen ? "rotate-180" : ""}`}>
               <path d="m6 9 6 6 6-6" />
             </svg>
           </button>
 
-          {/* Dropdown */}
           {searchOpen && (
             <div className="absolute left-0 right-0 top-full mt-1 bg-white rounded-lg border border-slate-200 shadow-lg z-50 py-1">
               {searches.map((s) => (
@@ -159,17 +149,16 @@ export function Sidebar() {
                     setActiveSearch(s);
                     setSearchOpen(false);
                   }}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-slate-50 transition ${
+                  className={`w-full flex items-center justify-between px-3 py-2 text-left hover:bg-slate-50 transition ${
                     s.id === activeSearch.id ? "bg-slate-50" : ""
                   }`}
                 >
-                  <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusColors[s.status]}`} />
                   <div className="min-w-0">
                     <span className="text-[13px] font-medium text-slate-800 block truncate">{s.title}</span>
                     <span className="text-[10px] text-slate-400 block truncate">{s.client}</span>
                   </div>
                   {s.id === activeSearch.id && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent ml-auto shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black ml-2 shrink-0">
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
                   )}
