@@ -74,7 +74,6 @@ export default function Home() {
         {/* Full-width product preview */}
         <div className="mt-12 px-6 sm:px-10 lg:px-16 max-w-6xl mx-auto">
           <div className="border border-slate-200 rounded-2xl overflow-hidden bg-slate-50">
-            {/* Mock product UI */}
             <div className="p-4 sm:p-6 lg:p-8">
               {/* Top bar */}
               <div className="flex items-center justify-between mb-6">
@@ -83,7 +82,10 @@ export default function Home() {
                   <span className="text-xs font-medium text-slate-800">VP Engineering Search — Acme Corp</span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100">Active</span>
                 </div>
-                <span className="text-[10px] text-slate-400">Mandate v2 - Locked</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-slate-400">Mandate v2 - Locked</span>
+                  <button className="text-[10px] px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-slate-300 transition">View Mandate</button>
+                </div>
               </div>
 
               {/* Pipeline stages */}
@@ -106,9 +108,9 @@ export default function Home() {
               {/* Candidate rows */}
               <div className="space-y-1.5">
                 {[
-                  { name: "Sarah Chen", role: "VP Eng, Series D Fintech", stage: "Evaluated", score: "4.2", signals: 12, status: "Defense brief generating..." },
-                  { name: "Marcus Rivera", role: "CTO, Growth-stage SaaS", stage: "Screened", score: "3.8", signals: 7, status: "3 signals pending verification" },
-                  { name: "Priya Sharma", role: "SVP Eng, Public Co", stage: "Evaluated", score: "4.5", signals: 15, status: "Ready to present" },
+                  { name: "Sarah Chen", role: "VP Eng, Series D Fintech", stage: "Evaluated", score: "4.2", signals: 12, status: "Defense brief generating...", action: "View Brief", actionStyle: "bg-accent text-white" },
+                  { name: "Marcus Rivera", role: "CTO, Growth-stage SaaS", stage: "Screened", score: "3.8", signals: 7, status: "3 signals pending", action: "Verify", actionStyle: "bg-amber-50 text-amber-700 border-amber-200" },
+                  { name: "Priya Sharma", role: "SVP Eng, Public Co", stage: "Evaluated", score: "4.5", signals: 15, status: "Ready to present", action: "Present", actionStyle: "bg-emerald-50 text-emerald-700 border-emerald-200" },
                 ].map((c) => (
                   <div key={c.name} className="flex items-center justify-between px-3 py-2.5 bg-white rounded-lg border border-slate-100">
                     <div className="flex items-center gap-3 min-w-0">
@@ -120,14 +122,27 @@ export default function Home() {
                         <span className="text-[10px] text-slate-400 block truncate">{c.role}</span>
                       </div>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 shrink-0">
+                    <div className="hidden sm:flex items-center gap-3 shrink-0">
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-100">{c.stage}</span>
                       <span className="text-[10px] text-slate-400">{c.signals} signals</span>
-                      <span className="text-xs font-medium text-slate-700">{c.score}</span>
-                      <span className="text-[10px] text-slate-400 max-w-[160px] truncate">{c.status}</span>
+                      <span className="text-xs font-medium text-slate-700 w-7 text-right">{c.score}</span>
+                      <span className="text-[10px] text-slate-400 w-[120px] truncate">{c.status}</span>
+                      <button className={`text-[10px] px-2.5 py-1 rounded-full border font-medium ${c.actionStyle}`}>
+                        {c.action}
+                      </button>
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Bottom actions bar */}
+              <div className="mt-4 flex items-center justify-between pt-4 border-t border-slate-100">
+                <div className="flex items-center gap-2">
+                  <button className="text-[10px] px-3 py-1.5 rounded-full bg-black text-white font-medium">Add Candidate</button>
+                  <button className="text-[10px] px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 font-medium">Generate Outreach</button>
+                  <button className="text-[10px] px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 font-medium">Log Interaction</button>
+                </div>
+                <span className="text-[10px] text-slate-400">58 candidates total</span>
               </div>
             </div>
           </div>
@@ -137,21 +152,30 @@ export default function Home() {
       {/* ── AI CAPABILITIES ── */}
       <section id="capabilities" className="py-20 sm:py-28 border-t border-slate-100">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="max-w-xl mb-14">
-            <span className="inline-block px-3 py-1 bg-blue-50 text-accent text-xs font-medium rounded-full mb-4">
-              AI-Powered
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-[-0.03em] text-black leading-[1.08]">
-              Intelligence at every stage
-            </h2>
-            <p className="mt-4 text-base text-slate-500 leading-7">
-              AI handles the drafting, extraction, and analysis so your team can focus on relationships and judgment.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
+            <div className="max-w-xl">
+              <span className="inline-block px-3 py-1 bg-blue-50 text-accent text-xs font-medium rounded-full mb-4">
+                AI-Powered
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-[-0.03em] text-black leading-[1.08]">
+                Intelligence at every stage
+              </h2>
+              <p className="mt-4 text-base text-slate-500 leading-7">
+                AI handles the drafting, extraction, and analysis so your team can focus on relationships and judgment.
+              </p>
+            </div>
+            <a
+              href={`mailto:${company.contactEmail}`}
+              className="hidden sm:inline-flex items-center gap-1.5 text-sm text-accent hover:text-accent-hover transition font-medium shrink-0"
+            >
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 rounded-2xl overflow-hidden border border-slate-100">
             {aiCapabilities.map((cap) => (
-              <div key={cap.id} className="p-7 sm:p-8 bg-white">
-                <div className="w-9 h-9 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4">
+              <div key={cap.id} className="p-7 sm:p-8 bg-white group hover:bg-slate-50/50 transition">
+                <div className="w-9 h-9 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4 group-hover:border-slate-200 transition">
                   {icons[cap.icon]}
                 </div>
                 <h3 className="text-sm font-semibold text-black mb-2">{cap.title}</h3>
@@ -176,11 +200,7 @@ export default function Home() {
 
           <div className="max-w-2xl mx-auto">
             {howItWorks.map((item, i) => (
-              <div
-                key={item.step}
-                className="flex gap-5 sm:gap-6"
-              >
-                {/* Timeline */}
+              <div key={item.step} className="flex gap-5 sm:gap-6">
                 <div className="flex flex-col items-center shrink-0">
                   <div className="w-8 h-8 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-xs font-semibold text-slate-400">
                     {item.step}
@@ -189,13 +209,22 @@ export default function Home() {
                     <div className="w-px flex-1 bg-slate-200 my-1" />
                   )}
                 </div>
-                {/* Content */}
                 <div className={`pb-10 ${i === howItWorks.length - 1 ? "pb-0" : ""}`}>
                   <h3 className="text-base font-semibold text-black">{item.title}</h3>
                   <p className="mt-1.5 text-sm text-slate-500 leading-6">{item.description}</p>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-14 text-center">
+            <a
+              href={`mailto:${company.contactEmail}`}
+              className="inline-flex items-center gap-2 px-7 py-3 bg-black hover:bg-slate-800 transition text-white rounded-full text-sm font-medium"
+            >
+              See it in action
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       </section>
@@ -216,11 +245,48 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {workflowFeatures.map((feat) => (
-              <div key={feat.title} className="p-6 sm:p-7 rounded-xl border border-slate-100 bg-white">
+              <div key={feat.title} className="p-6 sm:p-7 rounded-xl border border-slate-100 bg-white hover:border-slate-200 transition">
                 <h3 className="text-sm font-semibold text-black">{feat.title}</h3>
                 <p className="mt-2 text-sm text-slate-500 leading-6">{feat.description}</p>
               </div>
             ))}
+          </div>
+
+          {/* Blocked action example */}
+          <div className="mt-10 max-w-lg mx-auto">
+            <div className="rounded-xl border border-slate-200 bg-white p-5">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-semibold text-slate-800">Advance to Presented</span>
+                <button className="text-[11px] px-3 py-1.5 rounded-full bg-slate-100 text-slate-400 font-medium cursor-not-allowed" disabled>
+                  Blocked
+                </button>
+              </div>
+              <p className="text-[11px] text-slate-400 mb-3">Resolve these prerequisites to advance Sarah Chen:</p>
+              <div className="space-y-1.5">
+                {[
+                  { label: "Complete scorecard", done: true },
+                  { label: "Verify critical signals (2 remaining)", done: false, action: "Verify" },
+                  { label: "Approve defense brief", done: false, action: "Review" },
+                ].map((req) => (
+                  <div key={req.label} className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-50 border border-slate-100">
+                    <div className="flex items-center gap-2">
+                      {req.done ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500"><path d="M20 6 9 17l-5-5"/></svg>
+                      ) : (
+                        <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-300" />
+                      )}
+                      <span className={`text-[11px] ${req.done ? "text-slate-400 line-through" : "text-slate-600"}`}>{req.label}</span>
+                    </div>
+                    {!req.done && req.action && (
+                      <button className="text-[10px] px-2 py-0.5 rounded-full bg-accent text-white font-medium">
+                        {req.action}
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="mt-3 text-center text-xs text-slate-400">Blocked actions show what is needed and how to resolve it</p>
           </div>
         </div>
       </section>
@@ -239,12 +305,19 @@ export default function Home() {
               <p className="mt-4 text-base text-slate-500 leading-7">
                 Partners see search health, blockers, and risks in real time — all derived from live workflow state. No manual reporting. No separate dashboards to maintain.
               </p>
+              <a
+                href={`mailto:${company.contactEmail}`}
+                className="inline-flex items-center gap-1.5 mt-6 text-sm text-accent hover:text-accent-hover transition font-medium"
+              >
+                Request a demo
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
             <div className="space-y-2">
               {partnerInsights.map((insight) => (
                 <div
                   key={insight}
-                  className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-slate-100"
+                  className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-slate-100 hover:border-slate-200 transition cursor-default"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent shrink-0">
                     <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
@@ -268,11 +341,15 @@ export default function Home() {
                 questions
               </h2>
               <p className="mt-4 text-base text-slate-500 leading-7 max-w-sm">
-                Have a question that is not answered here? Reach out at{" "}
-                <a href={`mailto:${company.contactEmail}`} className="text-accent hover:underline">
-                  {company.contactEmail}
-                </a>
+                Have a question that is not answered here?
               </p>
+              <a
+                href={`mailto:${company.contactEmail}`}
+                className="inline-flex items-center gap-1.5 mt-4 px-5 py-2.5 border border-slate-200 hover:border-slate-300 transition text-slate-700 rounded-full text-sm font-medium"
+              >
+                Reach out
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
 
             <div className="divide-y divide-slate-100">
@@ -314,12 +391,23 @@ export default function Home() {
           <p className="mt-5 text-base text-slate-500 max-w-md mx-auto leading-7">
             Structure every search. Back every decision with evidence. Close with a complete record.
           </p>
-          <div className="mt-10">
+          <div className="mt-10 flex items-center justify-center gap-3">
             <a
               href={`mailto:${company.contactEmail}`}
-              className="inline-flex px-8 py-3.5 bg-accent hover:bg-accent-hover transition text-white rounded-full text-sm font-medium"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover transition text-white rounded-full text-sm font-medium"
             >
               Get in touch
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a
+              href="#capabilities"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("capabilities")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="inline-flex items-center px-6 py-3.5 border border-slate-200 hover:border-slate-300 transition text-slate-700 rounded-full text-sm font-medium"
+            >
+              Explore features
             </a>
           </div>
         </div>
