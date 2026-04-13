@@ -2,6 +2,7 @@ export const company = {
   name: "Run Retained",
   legalName: "Banti Software Inc.",
   url: "https://runretained.com",
+  contactEmail: "hello@runretained.com",
 };
 
 export const seo = {
@@ -15,62 +16,68 @@ export const seo = {
 export const aiCapabilities = [
   {
     id: "intake-prep",
-    title: "Intake Prep Generation",
+    title: "Intake prep in minutes",
     description:
-      "Opens a search request and instantly produces a tailored question set, call agenda, and prep brief — differentiated by level and function, with every question mapped to a downstream mandate field.",
+      "Open a search and get a tailored question set, call agenda, and prep brief — adapted by role level and function. Every question maps to a downstream mandate field so nothing gets lost between the call and the spec.",
+    icon: "clipboard",
   },
   {
     id: "mandate-drafting",
-    title: "Mandate Drafting",
+    title: "Mandates that write themselves",
     description:
-      "Captures structured intake answers and pre-populates a full mandate draft — requirements, scoring framework, comp parameters, timeline, and stakeholder map — ready for recruiter refinement.",
+      "Capture intake answers and watch the mandate draft populate — requirements, scoring criteria, comp parameters, timeline, and stakeholder map. Review, refine, and lock. The scoring framework derives automatically.",
+    icon: "file-text",
   },
   {
     id: "outreach-generation",
-    title: "Outreach Generation",
+    title: "Personalized outreach at scale",
     description:
-      "Drafts personalized candidate outreach grounded in the mandate and candidate context. Every message is reviewable and editable before delivery.",
+      "Generate candidate-specific outreach grounded in the mandate and the candidate's background. Every message is editable before it goes out. Follow-ups adapt based on response context.",
+    icon: "send",
   },
   {
     id: "signal-extraction",
-    title: "Signal Extraction",
+    title: "Signals from every conversation",
     description:
-      "Parses screens, debriefs, and interactions to surface structured signals — typed, confidence-scored, and linked to specific mandate requirements. Contradictions are flagged automatically.",
+      "Screens, debriefs, and reference checks are parsed into structured signals — typed, confidence-scored, and linked to mandate requirements. Contradictions surface automatically so nothing hides in notes.",
+    icon: "zap",
   },
   {
     id: "defense-briefs",
-    title: "Defense Brief Generation",
+    title: "Defense briefs that build themselves",
     description:
-      "Assembles evidence-backed candidate presentations when scoring thresholds, signal verification, and mandate coverage requirements are met. Every claim traces to a source.",
+      "When a candidate clears scoring thresholds and signal verification, the system assembles an evidence-backed presentation. Every claim traces to a source. Review, approve, and deliver from one place.",
+    icon: "shield",
   },
   {
     id: "scoring-analysis",
-    title: "Coverage & Fit Analysis",
+    title: "Know where every candidate stands",
     description:
-      "Computes mandate fit, critical coverage, unknown burden, and gate failures across every candidate in the pipeline. Surfaces verification priorities and decision band recommendations.",
+      "Mandate fit, critical coverage, unknown gaps, and deal-breakers — computed across the entire pipeline. See who needs verification, who is ready to present, and who is blocked.",
+    icon: "bar-chart",
   },
 ];
 
 export const workflowFeatures = [
   {
-    title: "Governed lifecycle states",
+    title: "Nothing skips a step",
     description:
-      "Every search, mandate, candidate, signal, and artifact follows a defined state machine with server-enforced gates. No shortcuts, no skipped steps.",
+      "Every candidate moves through a defined lifecycle. The system enforces prerequisites — a candidate cannot be presented without a complete scorecard, verified critical signals, and an approved defense brief.",
   },
   {
-    title: "Append-only audit trail",
+    title: "Full audit trail",
     description:
-      "Every transition across every object is logged immutably. Full replay from intake to close. Nothing is deleted or overwritten.",
+      "Every transition, every decision, every artifact — logged with attribution and timestamp. Replay any search from intake to close. Nothing is deleted or overwritten.",
   },
   {
-    title: "Versioned mandates",
+    title: "Mandates that version cleanly",
     description:
-      "The mandate is the source of truth. Revisions create new versions, freeze prior ones, and flag existing scores for re-evaluation automatically.",
+      "When requirements change, the system creates a new mandate version and flags existing scores for re-evaluation. Prior versions are preserved. You always know what the spec was when a decision was made.",
   },
   {
-    title: "Evidence-linked scoring",
+    title: "Scores require evidence",
     description:
-      "Every candidate score requires linked supporting signals. No unsupported judgments. Scoring is human-driven but evidence-backed.",
+      "Every candidate score links to supporting signals. No more unsupported gut calls. Recruiter judgment stays authoritative — it just has to show its work.",
   },
 ];
 
@@ -79,65 +86,74 @@ export const howItWorks = [
     step: "01",
     title: "Open a search",
     description:
-      "Create a search request. AI generates an intake prep pack — question set, call agenda, and prep brief — tailored to the role level and function.",
+      "Create a search request and get an AI-generated intake prep pack — question set, call agenda, and role brief — ready before the client conversation.",
   },
   {
     step: "02",
     title: "Lock the mandate",
     description:
-      "Capture intake answers in structured form. AI pre-populates the mandate draft. Refine requirements, lock it, and the scoring framework is derived automatically.",
+      "Capture intake answers in structured form. The mandate draft populates automatically. Refine it, get partner sign-off, and lock. The scoring framework follows.",
   },
   {
     step: "03",
-    title: "Run the pipeline",
+    title: "Run the search",
     description:
-      "Add candidates, generate outreach, capture responses, log screens and debriefs. AI extracts signals from every interaction and links them to mandate requirements.",
+      "Add candidates, generate outreach, capture responses, log screens and debriefs. Every interaction feeds the intelligence layer. Signals surface and link to requirements automatically.",
   },
   {
     step: "04",
     title: "Evaluate and present",
     description:
-      "Score candidates against the mandate with evidence-linked assessments. When prerequisites are met, AI generates defense briefs. Present the slate with full provenance.",
+      "Score candidates against the mandate with evidence-linked assessments. Defense briefs generate when prerequisites are met. Present the slate with full provenance behind every recommendation.",
   },
   {
     step: "05",
-    title: "Close with a record",
+    title: "Close with a complete record",
     description:
-      "Capture client feedback, advance through interviews and offers, close the search. Every transition and artifact is tracked — replayable history from day one.",
+      "Client feedback loops back in. Interviews, offers, and outcomes are tracked. When the search closes, you have a replayable history — not a folder of emails.",
   },
+];
+
+export const partnerInsights = [
+  "Which searches have stale candidates",
+  "Where outreach has gone cold",
+  "Which mandates have coverage gaps",
+  "What is blocked and why",
+  "Which artifacts are waiting on approval",
+  "Candidate pipeline velocity by stage",
 ];
 
 export const faq = [
   {
-    q: "What kind of search firms is this built for?",
-    a: "Run Retained is designed for retained executive search firms that run structured, high-touch engagements. If your searches follow a defined process from intake through close, and you care about evidence quality and auditability, this is built for you.",
+    q: "Who is this built for?",
+    a: "Retained executive search firms that run structured, high-touch engagements. If you care about process integrity, evidence quality, and being able to defend every recommendation to a client, this is built for you.",
   },
   {
-    q: "Does AI replace recruiter judgment?",
-    a: "No. AI handles drafting, extraction, and analysis. Recruiters make every decision — locking mandates, scoring candidates, approving artifacts, advancing the pipeline. The system enforces that human judgment is supported by evidence, not replaced by automation.",
+    q: "Does AI replace the recruiter?",
+    a: "No. AI drafts, extracts, and analyzes. Recruiters lock mandates, score candidates, approve artifacts, and advance the pipeline. The system ensures every judgment is supported by evidence — it does not make decisions for you.",
   },
   {
-    q: "How does the mandate work?",
-    a: "The mandate defines what 'good' looks like for a search. It captures requirements across four categories — must-have, core, contextual, and anti-signals — each with typed signal linkage and scoring anchors. It is versioned and locked before candidates enter the pipeline.",
+    q: "What is a mandate?",
+    a: "The mandate is the specification for a search — it defines what 'good' looks like. Requirements are structured into must-haves, core competencies, contextual factors, and anti-signals. It is versioned, locked before candidates enter the pipeline, and seeds the scoring framework automatically.",
   },
   {
-    q: "What are signals?",
-    a: "Signals are atomic units of intelligence extracted from interactions — calls, emails, debriefs, reference checks. Each signal has a type, confidence score, provenance, freshness, and verification state. They are the evidence layer that supports every candidate score.",
+    q: "How are candidates scored?",
+    a: "Recruiters score each candidate on a 1-5 scale per requirement axis, with every score linked to supporting signals. The system also computes coverage metrics — mandate fit, critical coverage, gaps, and deal-breakers — to surface who is ready and who needs work.",
   },
   {
-    q: "Can multiple people work on the same search?",
-    a: "Yes. Searches support team assignments with role-based access. Partners have oversight and approval authority. Recruiters run execution. Every action is attributed and logged.",
+    q: "Can multiple team members work on the same search?",
+    a: "Yes. Searches support team assignments with role-based access. Partners approve mandates and client-facing artifacts. Recruiters run execution. Every action is attributed.",
   },
   {
-    q: "Is candidate data isolated between clients?",
-    a: "The system is multi-tenant from the ground up. Every record is scoped to a tenant. There is no cross-tenant visibility. Candidate identity records are global within a tenant, but performance data is always scoped to a specific search.",
+    q: "Is client data isolated?",
+    a: "The system is multi-tenant from the ground up. Every record is scoped to your firm. There is no cross-tenant visibility. Candidate profiles are shared within your firm, but performance data is always scoped to a specific search.",
   },
   {
-    q: "What happens when a mandate changes mid-search?",
-    a: "Mandate revision creates a new version and freezes the prior one. When the new version locks, existing candidate scores are automatically flagged for re-evaluation against the updated requirements. Nothing is lost.",
+    q: "What happens when requirements change mid-search?",
+    a: "The system creates a new mandate version, freezes the prior one, and flags existing scores for re-evaluation against the updated requirements. Nothing is lost — you can see exactly what changed and when.",
   },
   {
-    q: "Are AI-generated artifacts sent directly to clients?",
-    a: "Never. Every artifact — defense briefs, outreach, reports — goes through a review and approval flow before delivery. Input snapshots are immutable. Regeneration creates a new artifact, not a mutation.",
+    q: "Are AI-generated documents sent directly to clients?",
+    a: "Never. Every artifact goes through a review and approval flow before delivery. The inputs that generated it are captured as an immutable snapshot. If you regenerate, it creates a new version — the old one is preserved.",
   },
 ];
