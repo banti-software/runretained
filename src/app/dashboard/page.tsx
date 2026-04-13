@@ -1,11 +1,11 @@
 "use client";
 
-const pipelineStages = [
-  { label: "Identified", count: 24 },
-  { label: "Contacted", count: 18 },
-  { label: "Screened", count: 9 },
-  { label: "Evaluated", count: 5 },
-  { label: "Presented", count: 2 },
+const phases = [
+  { label: "Define", status: "complete" },
+  { label: "Source", status: "active" },
+  { label: "Assess", status: "active" },
+  { label: "Present", status: "upcoming" },
+  { label: "Close", status: "upcoming" },
 ];
 
 const candidates = [
@@ -16,10 +16,11 @@ const candidates = [
   { name: "Jordan Hayes", role: "Dir Eng, Infra", stage: "Screened", score: "3.5", signals: 4, coverage: "48%" },
 ];
 
-const blockers = [
-  "3 signals pending verification",
-  "Defense brief awaiting approval",
-  "2 candidates stale (no activity 7d+)",
+const needsAttention = [
+  { text: "3 signals pending verification", area: "Assess" },
+  { text: "Defense brief awaiting approval", area: "Present" },
+  { text: "2 candidates with no activity for 7+ days", area: "Source" },
+  { text: "Calibration review overdue", area: "Define" },
 ];
 
 const recentActivity = [
@@ -49,19 +50,27 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Pipeline overview */}
+      {/* Phase progress */}
       <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-slate-800">Pipeline</h2>
-          <span className="text-xs text-slate-400">58 total</span>
+          <h2 className="text-sm font-semibold text-slate-800">Search Progress</h2>
+          <span className="text-xs text-slate-400">Mandate v2 locked</span>
         </div>
-        <div className="grid grid-cols-5 gap-3">
-          {pipelineStages.map((s) => (
-            <button key={s.label} className="text-center group">
-              <div className="h-1.5 rounded-full bg-slate-200 mb-2 group-hover:bg-slate-300 transition" />
-              <span className="text-[11px] text-slate-500 block">{s.label}</span>
-              <span className="text-lg font-semibold text-slate-800">{s.count}</span>
-            </button>
+        <div className="flex items-center gap-1">
+          {phases.map((phase, i) => (
+            <div key={phase.label} className="flex-1 flex items-center gap-1">
+              <div className="flex-1">
+                <div className={`h-1.5 rounded-full ${
+                  phase.status === "complete" ? "bg-black" :
+                  phase.status === "active" ? "bg-slate-400" :
+                  "bg-slate-200"
+                }`} />
+                <span className={`text-[11px] block mt-1.5 ${
+                  phase.status === "upcoming" ? "text-slate-300" : "text-slate-500"
+                }`}>{phase.label}</span>
+              </div>
+              {i < phases.length - 1 && <div className="w-1" />}
+            </div>
           ))}
         </div>
       </div>
@@ -70,13 +79,12 @@ export default function DashboardPage() {
         {/* Candidates table */}
         <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200">
           <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-            <h2 className="text-sm font-semibold text-slate-800">Active Candidates</h2>
+            <h2 className="text-sm font-semibold text-slate-800">Pipeline</h2>
             <button className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:border-slate-300 transition">
               Filter
             </button>
           </div>
 
-          {/* Table header */}
           <div className="grid grid-cols-[1fr_80px_50px_50px_50px] gap-3 px-5 py-2.5 border-b border-slate-50 text-[11px] text-slate-400 font-medium uppercase tracking-wider">
             <span>Candidate</span>
             <span>Stage</span>
@@ -85,7 +93,6 @@ export default function DashboardPage() {
             <span className="text-right">Fit</span>
           </div>
 
-          {/* Rows */}
           <div className="divide-y divide-slate-50">
             {candidates.map((c) => (
               <a key={c.name} href="#" className="grid grid-cols-[1fr_80px_50px_50px_50px] gap-3 px-5 py-3 items-center hover:bg-slate-50/50 transition">
@@ -114,45 +121,30 @@ export default function DashboardPage() {
 
         {/* Right column */}
         <div className="space-y-6">
-          {/* Blockers */}
+          {/* Needs attention */}
           <div className="bg-white rounded-xl border border-slate-200 p-5">
-            <h2 className="text-sm font-semibold text-slate-800 mb-3">Blockers</h2>
+            <h2 className="text-sm font-semibold text-slate-800 mb-3">Needs Attention</h2>
             <div className="space-y-2">
-              {blockers.map((b) => (
-                <div key={b} className="flex items-start gap-2.5 px-3 py-2.5 rounded-lg bg-slate-50">
-                  <div className="w-1 h-1 rounded-full bg-slate-400 mt-2 shrink-0" />
-                  <span className="text-[13px] text-slate-600 leading-5">{b}</span>
-                </div>
+              {needsAttention.map((item) => (
+                <a key={item.text} href="#" className="flex items-start justify-between gap-3 px-3 py-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 transition">
+                  <span className="text-[13px] text-slate-600 leading-5">{item.text}</span>
+                  <span className="text-[10px] text-slate-400 shrink-0 mt-0.5">{item.area}</span>
+                </a>
               ))}
             </div>
-            <button className="mt-3 text-xs text-slate-500 hover:text-black font-medium transition">
-              Resolve all
-            </button>
           </div>
 
-          {/* Mandate summary */}
+          {/* Mandate */}
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm font-semibold text-slate-800">Mandate</h2>
-              <span className="text-[11px] text-slate-400">v2 - Locked</span>
+              <span className="text-[11px] text-slate-400">v2</span>
             </div>
             <div className="space-y-2 text-[13px]">
-              <div className="flex justify-between">
-                <span className="text-slate-500">Must-haves</span>
-                <span className="text-slate-800 font-medium">4</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Core</span>
-                <span className="text-slate-800 font-medium">6</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Contextual</span>
-                <span className="text-slate-800 font-medium">3</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Anti-signals</span>
-                <span className="text-slate-800 font-medium">2</span>
-              </div>
+              <div className="flex justify-between"><span className="text-slate-500">Must-haves</span><span className="text-slate-800 font-medium">4</span></div>
+              <div className="flex justify-between"><span className="text-slate-500">Core</span><span className="text-slate-800 font-medium">6</span></div>
+              <div className="flex justify-between"><span className="text-slate-500">Contextual</span><span className="text-slate-800 font-medium">3</span></div>
+              <div className="flex justify-between"><span className="text-slate-500">Anti-signals</span><span className="text-slate-800 font-medium">2</span></div>
             </div>
             <button className="mt-4 w-full text-xs px-3 py-2 rounded-lg border border-slate-200 text-slate-600 hover:border-slate-300 transition font-medium">
               View Mandate
@@ -161,7 +153,7 @@ export default function DashboardPage() {
 
           {/* Recent activity */}
           <div className="bg-white rounded-xl border border-slate-200 p-5">
-            <h2 className="text-sm font-semibold text-slate-800 mb-3">Recent Activity</h2>
+            <h2 className="text-sm font-semibold text-slate-800 mb-3">Activity</h2>
             <div className="space-y-3">
               {recentActivity.map((a) => (
                 <div key={a.text} className="flex items-start gap-2.5">
