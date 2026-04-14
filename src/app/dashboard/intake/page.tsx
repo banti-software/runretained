@@ -20,13 +20,50 @@ export default function IntakePrepPage() {
     <div className="p-6 lg:p-8 max-w-5xl">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight text-black">Intake Prep</h1>
+          <h1 className="text-xl font-semibold tracking-tight text-black">Intake</h1>
           <p className="text-sm text-slate-500 mt-0.5">Preparation for the intake call with Acme Corp</p>
         </div>
         <button className="text-sm px-4 py-2 rounded-lg bg-black text-white hover:bg-slate-800 transition font-medium">
           Generate Prep Pack
         </button>
       </div>
+
+      {/* Meeting Notes Upload */}
+      <section className="bg-white rounded-xl border border-slate-200 mb-6">
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-slate-800">Meeting Notes</h2>
+            <p className="text-[11px] text-slate-400 mt-0.5">Uploaded notes are used to draft the mandate</p>
+          </div>
+          <span className="text-[11px] px-2 py-1 rounded-md bg-slate-100 text-slate-600 font-medium">Feeds Mandate</span>
+        </div>
+        <div className="p-5">
+          <div className="rounded-lg border border-dashed border-slate-300 px-4 py-8 text-center hover:border-slate-400 transition">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mx-auto text-slate-400"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <div className="text-[13px] font-medium text-slate-700 mt-2">
+              Upload meeting notes
+            </div>
+            <div className="text-[11px] text-slate-400 mt-1">
+              Drop a transcript or paste notes — we&apos;ll extract requirements into the mandate
+            </div>
+            <div className="text-[11px] text-slate-400 mt-0.5">PDF, DOCX, TXT, MD · Max 10 MB</div>
+          </div>
+        </div>
+      </section>
 
       {/* Artifacts */}
       <div className="bg-white rounded-xl border border-slate-200 mb-6">

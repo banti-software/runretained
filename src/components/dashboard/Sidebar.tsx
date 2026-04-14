@@ -27,7 +27,7 @@ const navGroups = [
     label: "Define",
     items: [
       {
-        label: "Intake Prep",
+        label: "Intake",
         href: "/dashboard/intake",
         icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="M12 11h4" /><path d="M12 16h4" /><path d="M8 11h.01" /><path d="M8 16h.01" /></svg>,
       },
@@ -240,11 +240,11 @@ export function Sidebar() {
           );
         })}
 
-        <div className="flex items-center gap-2.5 px-2.5 py-2 mt-2">
-          <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-medium text-slate-600">JD</div>
+        <div className="flex items-center gap-2.5 px-2.5 py-2 mt-2 rounded-lg bg-slate-50 border border-slate-200">
+          <div className="w-7 h-7 rounded-full bg-[#165DFC] flex items-center justify-center text-[11px] font-semibold text-white shrink-0 ring-2 ring-white">JD</div>
           <div className="min-w-0">
-            <span className="text-[13px] font-medium text-slate-700 block truncate">Jason Datta</span>
-            <span className="text-[10px] text-slate-400 block">Partner</span>
+            <span className="text-[13px] font-semibold text-slate-900 block truncate">Jason Datta</span>
+            <span className="text-[10px] text-slate-500 block">Partner</span>
           </div>
         </div>
       </div>
