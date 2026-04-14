@@ -43,6 +43,61 @@ export default function MandatePage() {
         </div>
       </div>
 
+      {/* Mandate Structure */}
+      <section className="bg-white rounded-xl border border-slate-200 mb-6">
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-slate-800">Mandate Structure</h2>
+          <span className="text-[11px] text-slate-400">Choose how this mandate is formatted</span>
+        </div>
+        <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* Tile 1: RunRetained structure (selected) */}
+          <div className="rounded-lg border border-slate-900 bg-slate-50/60 ring-1 ring-slate-900/5 p-4">
+            <div className="flex items-center gap-2.5">
+              <span className="w-3.5 h-3.5 rounded-full border border-slate-900 flex items-center justify-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-900" />
+              </span>
+              <span className="text-sm font-medium text-slate-900">Use RunRetained structure</span>
+            </div>
+            <p className="text-[12px] text-slate-500 mt-1.5 leading-relaxed">
+              Standard framework with Requirements, Scoring, Comp &amp; Timeline, and Stakeholders.
+            </p>
+            <p className="text-[11px] text-slate-400 mt-2">Recommended — proven across 200+ searches.</p>
+          </div>
+
+          {/* Tile 2: Upload reference document */}
+          <div className="rounded-lg border border-slate-200 hover:border-slate-300 transition p-4">
+            <div className="flex items-center gap-2.5">
+              <span className="w-3.5 h-3.5 rounded-full border border-slate-300" />
+              <span className="text-sm font-medium text-slate-900">Upload reference document</span>
+            </div>
+            <p className="text-[12px] text-slate-500 mt-1.5 leading-relaxed">
+              Use your own spec or client template as a formatting reference.
+            </p>
+            <div className="mt-3 rounded-md border border-dashed border-slate-300 px-3 py-4 text-center">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mx-auto text-slate-400"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              <div className="text-[12px] text-slate-600 mt-1.5">
+                Click to upload PDF / DOC / DOCX
+              </div>
+              <div className="text-[11px] text-slate-400 mt-0.5">Max 10 MB</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-slate-200">
         {tabs.map((tab) => (
