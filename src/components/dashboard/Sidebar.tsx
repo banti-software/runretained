@@ -3,13 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const searches = [
-  { id: "1", title: "VP Engineering", client: "Acme Corp" },
-  { id: "2", title: "CFO", client: "Beacon Health" },
-  { id: "3", title: "Head of Product", client: "Nova Labs" },
-  { id: "4", title: "CTO", client: "Ridge Financial" },
-];
+import { useDashboard } from "@/lib/store";
+import { Modal, Field, inputCls } from "./Modal";
 
 /* ── Phase-grouped navigation ── */
 
@@ -124,9 +119,17 @@ const bottomItems = [
 ];
 
 export function Sidebar() {
+  const { state, activeSearch, setActiveSearch, addSearch } = useDashboard();
   const [searchOpen, setSearchOpen] = useState(false);
-  const [activeSearch, setActiveSearch] = useState(searches[0]);
+  const [newSearchOpen, setNewSearchOpen] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [newClient, setNewClient] = useState("");
   const pathname = usePathname();
+
+  const partner = state.team.find((m) => m.role === "Partner") ?? state.team[0];
+  const partnerInitials = partner
+    ? partner.name.split(" ").map((n) => n[0]).join("")
+    : "RR";
 
   return (
     <aside className="w-60 shrink-0 border-r border-slate-200 bg-white flex flex-col h-full">
@@ -138,7 +141,7 @@ export function Sidebar() {
           </div>
           <div className="min-w-0">
             <span className="text-xs font-semibold text-slate-800 block truncate">Run Retained</span>
-            <span className="text-[10px] text-slate-400 block">Demo Firm</span>
+            <span className="text-[10px] text-slate-400 block truncate">{state.firm.name}</span>
           </div>
         </div>
 
@@ -158,10 +161,13 @@ export function Sidebar() {
 
           {searchOpen && (
             <div className="absolute left-0 right-0 top-full mt-1 bg-white rounded-lg border border-slate-200 shadow-lg z-50 py-1">
-              {searches.map((s) => (
+              {state.searches.map((s) => (
                 <button
                   key={s.id}
-                  onClick={() => { setActiveSearch(s); setSearchOpen(false); }}
+                  onClick={() => {
+                    setActiveSearch(s.id);
+                    setSearchOpen(false);
+                  }}
                   className={`w-full flex items-center justify-between px-3 py-2 text-left hover:bg-slate-50 transition ${s.id === activeSearch.id ? "bg-slate-50" : ""}`}
                 >
                   <div className="min-w-0">
@@ -174,7 +180,13 @@ export function Sidebar() {
                 </button>
               ))}
               <div className="border-t border-slate-100 mt-1 pt-1">
-                <button className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-slate-50 transition">
+                <button
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setNewSearchOpen(true);
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-slate-50 transition"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
                   <span className="text-[13px] text-slate-500">New Search</span>
                 </button>
@@ -206,9 +218,7 @@ export function Sidebar() {
                         : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
                     }`}
                   >
-                    <span className={active ? "text-black" : "text-slate-400"}>
-                      {item.icon}
-                    </span>
+                    <span className={active ? "text-black" : "text-slate-400"}>{item.icon}</span>
                     {item.label}
                   </Link>
                 );
@@ -232,22 +242,75 @@ export function Sidebar() {
                   : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
               }`}
             >
-              <span className={active ? "text-black" : "text-slate-400"}>
-                {item.icon}
-              </span>
+              <span className={active ? "text-black" : "text-slate-400"}>{item.icon}</span>
               {item.label}
             </Link>
           );
         })}
 
         <div className="flex items-center gap-2.5 px-2.5 py-2 mt-2 rounded-lg bg-slate-50 border border-slate-200">
-          <div className="w-7 h-7 rounded-full bg-[#165DFC] flex items-center justify-center text-[11px] font-semibold text-white shrink-0 ring-2 ring-white">JD</div>
+          <div className="w-7 h-7 rounded-full bg-[#165DFC] flex items-center justify-center text-[11px] font-semibold text-white shrink-0 ring-2 ring-white">
+            {partnerInitials}
+          </div>
           <div className="min-w-0">
-            <span className="text-[13px] font-semibold text-slate-900 block truncate">Jason Datta</span>
-            <span className="text-[10px] text-slate-500 block">Partner</span>
+            <span className="text-[13px] font-semibold text-slate-900 block truncate">{partner?.name}</span>
+            <span className="text-[10px] text-slate-500 block">{partner?.role}</span>
           </div>
         </div>
       </div>
+
+      {/* New Search modal */}
+      <Modal
+        open={newSearchOpen}
+        onClose={() => setNewSearchOpen(false)}
+        title="New Search"
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!newTitle.trim() || !newClient.trim()) return;
+            addSearch({ title: newTitle.trim(), client: newClient.trim() });
+            setNewTitle("");
+            setNewClient("");
+            setNewSearchOpen(false);
+          }}
+          className="space-y-3"
+        >
+          <Field label="Role">
+            <input
+              autoFocus
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder="e.g. VP Engineering"
+              className={inputCls}
+            />
+          </Field>
+          <Field label="Client">
+            <input
+              value={newClient}
+              onChange={(e) => setNewClient(e.target.value)}
+              placeholder="e.g. Acme Corp"
+              className={inputCls}
+            />
+          </Field>
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onClick={() => setNewSearchOpen(false)}
+              className="text-sm px-4 py-2 rounded-lg border border-slate-200 text-slate-700 hover:border-slate-300 transition font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="text-sm px-4 py-2 rounded-lg bg-black text-white hover:bg-slate-800 transition font-medium"
+            >
+              Create Search
+            </button>
+          </div>
+        </form>
+      </Modal>
     </aside>
   );
 }
+
